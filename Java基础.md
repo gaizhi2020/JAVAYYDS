@@ -339,3 +339,287 @@ public class InterfaceTest extends Student implements Comparable, Cloneable {
 
 
 
+# 18. 容器
+
+1. 容器框架的必要性:
+2. 层级: <img src="E:\0学习\程序\JAVAYYDS\static\javacontainer.png" alt="javacontainer" style="zoom: 50%;" />
+3. JUC: java.util.concurrent; 解决Java并发问题的包,代表 LinkedBlockingQueue<E>
+4. 多使用[官方文档](https://docs.oracle.com/javase/8/docs/api/) 查询
+5. 加.var后缀可以快速补全
+
+## 18.1 Collection: (无序,不唯一)
+
+```java
+package org.javayyds.container;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+/**
+ * 特点：
+ * 1. 可以存放不同数据类型,而数组只能存放同一种数据类型
+ * 2. 可以自动扩容,初始的容量是10, 每次扩容是变成原来oldCapacity的1.5倍
+ *
+ * api:
+ * 1. add: 要求传入Object对象, 因此传入基本类型时包含了自动拆箱装箱过程
+ * 2. addAll: 把另一个集合添加到该集合内
+ * 3. clear: 清空集合内的元素,但该集合并没有被回收
+ * 4. contains: 集合中是否包含该元素
+ * 5. containsAll:是否包含另一个集合的所有元素,有一个没有就返回false
+ * 6. equals: 相同的元素,相同的顺序
+ * 7. parallelStream
+ * 8. remove: 删除某个元素
+ * 9. removeAll: 删除某些元素
+ * 10. removeif: 删除符合条件的元素
+ * 11. isEmpty: 集合是否为空
+ * 12. retainAll: 包含集合的所有元素
+ * 13. size: 集合大小
+ * 14. toArray: 转为数组
+ */
+public class CollectionDemo {
+    public static void main(String[] args) {
+        // 接口是不能实例化的，所以new子类
+        Collection collection = new ArrayList();
+        collection.add(1);
+        collection.add(true);
+        collection.add(1.33354);
+        collection.add("test");
+        System.out.println(collection);
+        ((ArrayList) collection).add(0, "insert");
+        System.out.println(collection);
+        Collection collection1 = new ArrayList();
+        collection1.add("aaa");
+        collection1.add("bbb");
+        collection1.add("cc");
+        collection1.add("dd");
+        collection.addAll(collection1);
+        System.out.println(collection);
+        System.out.println(collection.contains("aaa"));
+        System.out.println(collection.contains(collection1));
+        System.out.println(collection.containsAll(collection1));
+        System.out.println("collection 包含所有collection1的元素" + collection.retainAll(collection1));
+        System.out.println("collection1 包含所有collection的元素" + collection1.retainAll(collection));
+        System.out.println(collection.size());
+        Object[] objects = collection.toArray();
+        collection.remove("bbb");
+        System.out.println(collection);
+        collection.clear();
+        System.out.println(collection);
+        System.out.println(collection.contains("aaa"));
+        System.out.println(collection.contains(collection1));
+        System.out.println(collection.containsAll(collection1));
+
+    }
+}
+```
+
+输出:
+
+```
+[1, true, 1.33354, test]
+[insert, 1, true, 1.33354, test]
+[insert, 1, true, 1.33354, test, aaa, bbb, cc, dd]
+true
+false
+true
+collection 包含所有collection1的元素true
+collection1 包含所有collection的元素false
+4
+[aaa, cc, dd]
+[]
+false
+false
+false
+
+Process finished with exit code 0
+
+```
+
+
+
+## 18.2 List (有序,不唯一)
+
+```java
+package org.javayyds.container;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ListDemo {
+    public static void main(String[] args) {
+        List list = new ArrayList();
+        list.add("a");
+        list.add(true);
+        list.add(1);
+        list.add("a");
+        list.add(1.33);
+        System.out.println(list);
+
+        System.out.println(list.get(0));
+        System.out.println(list.indexOf("a"));
+        System.out.println(list.lastIndexOf("a"));
+
+        System.out.println(list.set(1, "b"));
+        System.out.println(list);
+
+        System.out.println(list.subList(2,4));
+
+        List list1 = List.of(1, 2, 4, 6);
+        System.out.println(list1);
+    }
+}
+
+```
+
+输出:
+
+```
+[a, true, 1, a, 1.33]
+a
+0
+3
+true
+[a, b, 1, a, 1.33]
+[1, a]
+[1, 2, 4, 6]
+```
+
+
+
+## 18.3  List接口的实现类
+
+### 18.3.1 ArrayList
+
+底层数据结构用的是数组,连续的内存空间进行元素存储
+
+优点是,遍历和随机访问效率比较高
+
+缺点是,增加删除和按内容查询效率低
+
+适合查询比较频繁的集合选择
+
+### 18.3.2 LinkedList
+
+底层用的是链表结构,有前驱后继,非连续存储空间
+
+优点是,增加和删除效率高,只要改变某两个节点的前驱或后继
+
+缺点是,遍历和随机访问效率低
+
+适合修改比较频繁的集合选择
+
+提供丰富的API, 使用的时候查询[官方文档](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html)即可
+
+```
+package org.javayyds.container;
+
+import java.util.LinkedList;
+
+/**
+ * LinkedList
+ * 提供丰富的API, 使用的时候查询官方文档即可
+ * https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html
+ */
+public class LinkedListDemo {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.add("a");
+        list.add(true);
+        list.add(1);
+        list.add(1.234);
+        System.out.println(list);
+
+        list.add(3, "c");
+        System.out.println(list);
+        list.add(3, "d");
+        System.out.println(list);
+
+        list.addFirst("111");
+        System.out.println(list);
+        list.addLast("222");
+        System.out.println(list);
+
+        System.out.println(list.peek());
+        System.out.println(list);
+        System.out.println(list.peekFirst());
+        System.out.println(list);
+        System.out.println(list.peekLast());
+        System.out.println(list);
+        System.out.println(list.poll());
+        System.out.println(list);
+        System.out.println(list.pollFirst());
+        System.out.println(list);
+        System.out.println(list.pollLast());
+        System.out.println(list);
+
+    }
+}
+
+```
+
+输出:
+
+```
+[a, true, 1, 1.234]
+[a, true, 1, c, 1.234]
+[a, true, 1, d, c, 1.234]
+[111, a, true, 1, d, c, 1.234]
+[111, a, true, 1, d, c, 1.234, 222]
+111
+[111, a, true, 1, d, c, 1.234, 222]
+111
+[111, a, true, 1, d, c, 1.234, 222]
+222
+[111, a, true, 1, d, c, 1.234, 222]
+111
+[a, true, 1, d, c, 1.234, 222]
+a
+[true, 1, d, c, 1.234, 222]
+222
+[true, 1, d, c, 1.234]
+
+Process finished with exit code 0
+
+```
+
+###  18.3.3 Vector
+
+```java
+package org.javayyds.container;
+
+import java.util.Vector;
+
+/**
+ * Vector
+ * 1. List接口的子类,
+ * 2. 跟ArrayList一样底层也是数组
+ * 3. 面试常问:
+ *      ArrayList是线程不安全,效率高; Vector 是加了synchronized,线程安全,效率低
+ *      ArrayList扩容grow操作是扩容为原来的1.5倍,Vector扩容为原来的2倍
+ */
+public class VectorDemo {
+    public static void main(String[] args) {
+        Vector vector = new Vector();
+        vector.add("a");
+        vector.add(true);
+        vector.add(1);
+        vector.add(1.233);
+        System.out.println(vector);
+
+    }
+}
+
+```
+
+输出:
+
+```
+[a, true, 1, 1.233]
+```
+
+
+
+## 18.4 Iterator
+
+
+

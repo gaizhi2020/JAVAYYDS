@@ -22,6 +22,13 @@ import java.util.*;
  * hasNext()
  * next()
  *
+ * 3. 如果循环遍历时需要对数据进行删除,会发生并发修改异常,
+ * 因此遍历的同时需要修改数据,则应该使用listIterator()方法
+ *
+ * listIterator提供向前遍历和向后遍历两种
+ * 始终通过cursor和lastret指针来获取元素值以及向下遍历索引
+ *
+ *
  *
  */
 public class IteratorDemo {
@@ -81,7 +88,10 @@ public class IteratorDemo {
         }
         System.out.println(list2);
 
-
+        // 此时cursor游标在最下边的index,所以可以倒序遍历
+        while (listIterator.hasPrevious()) {
+            System.out.println(listIterator.previous());
+        }
 
     }
 }

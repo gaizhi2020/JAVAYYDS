@@ -14,6 +14,8 @@ import java.util.TreeSet;
  * TreeSet 底层用的tree是红黑树
  * 1. 数据都是同一类型
  * 2. add默认是进行排序,特殊的平衡二叉树,为了提高查询效率
+ * 3. TreeSet 底层实现是treemap,利用红黑树实现
+ * 4. 设置元素时候,如果是自定义对象,则需要定义equals和hashcode方法,
  */
 public class SetDemo {
 
@@ -40,7 +42,14 @@ public class SetDemo {
         treeSet.add(332);
         treeSet.add(1);
         treeSet.add(52);
+        System.out.println(treeSet.ceiling(1));
         System.out.println(treeSet);
+
+        HashSet treeSet1 = new HashSet();
+        treeSet1.add(new Person("张三", 12));
+        treeSet1.add(new Person("张三", 12));
+        treeSet1.add(new Person("李四", 14));
+        System.out.println(treeSet1);
 
     }
 }

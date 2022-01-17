@@ -16,6 +16,7 @@ import java.util.TreeSet;
  * 2. add默认是进行排序,特殊的平衡二叉树,为了提高查询效率
  * 3. TreeSet 底层实现是treemap,利用红黑树实现
  * 4. 设置元素时候,如果是自定义对象,则需要定义equals和hashcode方法,
+ * 5. 树中的数据元素是默认排序操作的,如果是基本数据类型,则不需要进行操作,若是引用数据类型,则需要添加内部比较器
  */
 public class SetDemo {
 
@@ -50,6 +51,13 @@ public class SetDemo {
         treeSet1.add(new Person("张三", 12));
         treeSet1.add(new Person("李四", 14));
         System.out.println(treeSet1);
+
+        TreeSet compareTree = new TreeSet();
+        compareTree.add(new Person("zhangsan", 12));
+        compareTree.add(new Person("lisi", 12));
+        compareTree.add(new Person("wangwu", 14));
+        compareTree.add(new Person("longshijiu", 13));
+        System.out.println(compareTree);
 
     }
 }

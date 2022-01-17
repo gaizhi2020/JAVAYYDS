@@ -924,6 +924,14 @@ AVL树拥有所有二叉搜索树的特点
 
 
 
+HashSet唯一性:通过hashCode和equals方法来完成,如果hashCode相同,则比较equals,否则不用比较equals
+
+TreeSet:二叉查找树,(红黑树)存储结构
+
+优点:有序,查询比List快;
+
+缺点:查询速度没有HashSet快
+
 
 
 

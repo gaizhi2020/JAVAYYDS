@@ -2,7 +2,7 @@ package org.javayyds.container;
 
 import java.util.Objects;
 
-public class Person {
+public class Person implements Comparable {
 
     private String name;
     private int age;
@@ -43,5 +43,30 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    /**
+     * 该比较器比较的是name长度
+     * @param o
+     * @return
+     */
+    @Override
+    public int compareTo(Object o) {
+        Person p = (Person) o;
+        if (p.name.length() > this.name.length()) {
+            return -1;
+        } else if (p.name.length() < this.name.length()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

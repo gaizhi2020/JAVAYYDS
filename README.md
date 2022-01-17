@@ -23,3 +23,32 @@
 
 
 
+
+=======
+
+## TODO
+
+
+
+- [ ] Java基础
+- [ ] jvm
+- [ ] 多线程
+- [ ] sql
+- [ ] springboot
+- [ ] linux
+- [ ] 项目
+
+-------------------------
+
+- [ ] spring
+- [ ] springcloud
+- [ ] mybatis
+- [ ] redis
+- [ ] 网络
+- [ ] 消息队列
+- [ ] zookeeper
+- [ ] 算法
+- [ ] 大数据
+- [ ] 录音分析
+
+

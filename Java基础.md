@@ -341,6 +341,8 @@ public class InterfaceTest extends Student implements Comparable, Cloneable {
 
 # 18. 容器
 
+内容：<img src="static/集合容器.png" style="zoom:70%;" />
+
 1. 容器框架的必要性:
 2. 层级: <img src="E:\0学习\程序\JAVAYYDS\static\javacontainer.png" alt="javacontainer" style="zoom: 50%;" />
 3. JUC: java.util.concurrent; 解决Java并发问题的包,代表 LinkedBlockingQueue<E>

@@ -1,4 +1,4 @@
-package org.javayyds.multithread;
+package org.javayyds.multithread.c_000_thread_basic;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.LockSupport;
